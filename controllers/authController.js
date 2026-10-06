@@ -15,7 +15,7 @@ const register = async (req, res) => {
         message: "User already exists"
       });
     }
-
+    //bcrypt
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
@@ -55,7 +55,7 @@ const login = async (req, res) => {
         message: "Invalid email or password"
       });
     }
-
+//bcrypt
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
@@ -124,7 +124,7 @@ const firebaseLogin = async (req, res) => {
       });
     }
 
-    // Create EventHive JWT
+    // Create EventHive JWT - jwt expiring in 1 day
     const token = jwt.sign(
       {
         id: user._id,
